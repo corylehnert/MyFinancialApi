@@ -1,0 +1,9 @@
+@MyFinancialApi_HostAddress = http://localhost:5184
+
+POST {{MyFinancialApi_HostAddress}}/AddDebt/
+Accept: application/json
+
+###
+
+GET {{MyFinancialApi_HostAddress}}/Report/
+Accept: applciation/json
