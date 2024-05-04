@@ -16,6 +16,9 @@
 
         public DateTime LastPaymentDate { get; set; }
 
+        /// <summary>
+        /// Person who the has the pay the debt aka debtee
+        /// </summary>
         public string Owner { get; set; }
     }
 }
