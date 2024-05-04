@@ -1,6 +1,6 @@
 ﻿namespace MyFinancialApi.Domain.Providers
 {
-    public interface IAddDebtProvider
+    public class IAddDebtProvider
     {
     }
 }

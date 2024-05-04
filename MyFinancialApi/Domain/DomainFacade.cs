@@ -1,15 +1,19 @@
 ﻿using MyFinancialApi.Domain.Managers;
+using MyFinancialApi.Web.DTOs.Requests;
 
 namespace MyFinancialApi.Domain
 {
     public static class DomainFacade
     {
-        public static IAddDebtManager AddDebt()
+        private static AddDebtManager _addDebtManager = new AddDebtManager();
+        private static FinancialReportManager _reportManager = new FinancialReportManager();
+
+        public static void AddDebt(AddDebtRequest request)
         {
-            throw new NotImplementedException();
+            _addDebtManager.AddDebt(request);
         }
 
-        public static IFinancialReportManager CreateFinancialReport()
+        public static void CreateFinancialReport()
         {
             throw new NotImplementedException();
         }

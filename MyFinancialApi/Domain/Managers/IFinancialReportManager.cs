@@ -1,6 +1,6 @@
 ﻿namespace MyFinancialApi.Domain.Managers
 {
-    public interface IFinancialReportManager
+    public class IFinancialReportManager
     {
     }
 }
