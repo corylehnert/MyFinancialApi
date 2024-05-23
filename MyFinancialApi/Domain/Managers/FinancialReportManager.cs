@@ -8,9 +8,9 @@ namespace MyFinancialApi.Domain.Managers
     {
         private FinancialReportProvider _provider = new FinancialReportProvider();
 
-        public FinancialReportResponse CreateFinanicalReport(FinancialReportRequest request)
+        public FinancialReportResponse CreateFinanicalReport()
         {
-            return _provider.CreateFinancialReport(request);
+            return _provider.CreateFinancialReport();
         }
     }
 }

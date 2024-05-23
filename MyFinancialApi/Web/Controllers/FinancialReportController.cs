@@ -17,9 +17,9 @@ namespace MyFinancialApi.Web.Controllers
         }
 
         [HttpGet(Name = "Report")]
-        public IActionResult Get(FinancialReportRequest request)
+        public IActionResult Get()
         {
-            var response = DomainFacade.CreateFinancialReport(request);
+            var response = DomainFacade.CreateFinancialReport();
             return Ok(response);
         }
     }

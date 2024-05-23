@@ -14,9 +14,9 @@ namespace MyFinancialApi.Domain
             _addDebtManager.AddDebt(request);
         }
 
-        public static FinancialReportResponse CreateFinancialReport(FinancialReportRequest request)
+        public static FinancialReportResponse CreateFinancialReport()
         {
-            return _reportManager.CreateFinanicalReport(request);
+            return _reportManager.CreateFinanicalReport();
         }
     }
 }
