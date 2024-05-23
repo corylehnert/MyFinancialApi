@@ -1,5 +1,6 @@
 ﻿using MyFinancialApi.Domain.Managers;
 using MyFinancialApi.Web.DTOs.Requests;
+using MyFinancialApi.Web.DTOs.Responses;
 
 namespace MyFinancialApi.Domain
 {
@@ -13,9 +14,9 @@ namespace MyFinancialApi.Domain
             _addDebtManager.AddDebt(request);
         }
 
-        public static void CreateFinancialReport()
+        public static FinancialReportResponse CreateFinancialReport()
         {
-            throw new NotImplementedException();
+            return _reportManager.CreateFinanicalReport();
         }
     }
 }

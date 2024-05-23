@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyFinancialApi.Domain;
+using MyFinancialApi.Domain.Managers;
+using MyFinancialApi.Web.DTOs.Requests;
 
 namespace MyFinancialApi.Web.Controllers
 {
@@ -16,7 +19,8 @@ namespace MyFinancialApi.Web.Controllers
         [HttpGet(Name = "Report")]
         public IActionResult Get()
         {
-            return new OkObjectResult("This is the Report response.");
+            var response = DomainFacade.CreateFinancialReport();
+            return Ok(response);
         }
     }
 }
