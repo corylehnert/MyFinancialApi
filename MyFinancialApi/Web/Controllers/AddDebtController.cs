@@ -5,7 +5,7 @@ using MyFinancialApi.Web.DTOs.Requests;
 namespace MyFinancialApi.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    
     public class AddDebtController : Controller
     {
         private readonly ILogger<AddDebtController> _logger;
@@ -15,7 +15,8 @@ namespace MyFinancialApi.Web.Controllers
             _logger = logger;
         }
 
-        [HttpPost(Name = "AddDebt")]
+        [HttpPost]
+        [Route("AddDebt")]
         public IActionResult Post(AddDebtRequest request)
         {
             try

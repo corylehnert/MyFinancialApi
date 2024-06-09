@@ -6,7 +6,6 @@ using MyFinancialApi.Web.DTOs.Requests;
 namespace MyFinancialApi.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class FinancialReportController : Controller
     {
         private readonly ILogger<FinancialReportController> _logger;
@@ -16,7 +15,8 @@ namespace MyFinancialApi.Web.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "Report")]
+        [HttpGet]
+        [Route("FullReport")]
         public IActionResult Get()
         {
             var response = DomainFacade.CreateFinancialReport();
