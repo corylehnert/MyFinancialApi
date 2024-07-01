@@ -28,7 +28,7 @@ namespace MyFinancialApi.Web.Controllers
         [Route("WeeklyReport")]
         public IActionResult CreateWeeklyReport()
         {
-            var response = new FinancialReportResponse();
+            var response = DomainFacade.CreateWeeklyFinancialReport();
             return Ok(response);
         }
     }
