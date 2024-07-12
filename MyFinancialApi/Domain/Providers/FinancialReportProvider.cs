@@ -46,7 +46,7 @@ namespace MyFinancialApi.Domain.Providers
             
             try
             {
-                var query = $"SELECT * FROM [dbo].[debt] where DateOfOccurrence between DATEADD(week, -1, GETDATE()) and GETDATE()";
+                var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(week, -1, GETDATE()) and GETDATE()";
                 var sqlCommand = new SqlCommand(query, debtDatabaseConnection);
                 debtDatabaseConnection.Open();
 

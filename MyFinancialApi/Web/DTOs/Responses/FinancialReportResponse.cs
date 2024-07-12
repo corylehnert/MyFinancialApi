@@ -6,6 +6,6 @@ namespace MyFinancialApi.Web.DTOs.Responses
     {
         public List<DebtEntry> Debts { get; set; } = new List<DebtEntry>();
 
-        public List<string> Notices { get; set; }
+        public List<string> Notices { get; set; } = new List<string>();
     }
 }
