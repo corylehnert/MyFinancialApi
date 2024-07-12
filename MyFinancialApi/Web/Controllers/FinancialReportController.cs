@@ -2,11 +2,11 @@
 using MyFinancialApi.Domain;
 using MyFinancialApi.Domain.Managers;
 using MyFinancialApi.Web.DTOs.Requests;
+using MyFinancialApi.Web.DTOs.Responses;
 
 namespace MyFinancialApi.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class FinancialReportController : Controller
     {
         private readonly ILogger<FinancialReportController> _logger;
@@ -16,10 +16,19 @@ namespace MyFinancialApi.Web.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "Report")]
-        public IActionResult Get()
+        [HttpGet]
+        [Route("FullReport")]
+        public IActionResult CreateFullReport()
         {
             var response = DomainFacade.CreateFinancialReport();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("WeeklyReport")]
+        public IActionResult CreateWeeklyReport()
+        {
+            var response = DomainFacade.CreateWeeklyFinancialReport();
             return Ok(response);
         }
     }

@@ -18,5 +18,10 @@ namespace MyFinancialApi.Domain
         {
             return _reportManager.CreateFinanicalReport();
         }
+
+        public static FinancialReportResponse CreateWeeklyFinancialReport()
+        {
+            return _reportManager.CreateWeeklyFinancialReport();
+        }
     }
 }
