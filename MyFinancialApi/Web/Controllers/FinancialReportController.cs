@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyFinancialApi.Domain;
-using MyFinancialApi.Domain.Managers;
-using MyFinancialApi.Web.DTOs.Requests;
-using MyFinancialApi.Web.DTOs.Responses;
 
 namespace MyFinancialApi.Web.Controllers
 {
@@ -29,6 +26,14 @@ namespace MyFinancialApi.Web.Controllers
         public IActionResult CreateWeeklyReport()
         {
             var response = DomainFacade.CreateWeeklyFinancialReport();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("MonthlyReport")]
+        public IActionResult CreateMonthlyReport()
+        {
+            var response = DomainFacade.CreateMonthlyFinancialiReport();
             return Ok(response);
         }
     }

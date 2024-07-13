@@ -1,5 +1,4 @@
 ﻿using MyFinancialApi.Domain.Providers;
-using MyFinancialApi.Web.DTOs.Requests;
 using MyFinancialApi.Web.DTOs.Responses;
 
 namespace MyFinancialApi.Domain.Managers
@@ -16,6 +15,11 @@ namespace MyFinancialApi.Domain.Managers
         public FinancialReportResponse CreateWeeklyFinancialReport()
         {
             return _provider.CreateWeeklyFinanicalReport();
+        }
+
+        public FinancialReportResponse CreateMonthlyFinancialReport()
+        {
+            return _provider.CreateMonthlyFinancialReport();
         }
     }
 }

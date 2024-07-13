@@ -1,5 +1,4 @@
 ﻿using MyFinancialApi.Domain.DTOs;
-using MyFinancialApi.Web.DTOs.Requests;
 using MyFinancialApi.Web.DTOs.Responses;
 using System.Data.SqlClient;
 
@@ -47,6 +46,37 @@ namespace MyFinancialApi.Domain.Providers
             try
             {
                 var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(week, -1, GETDATE()) and GETDATE()";
+                var sqlCommand = new SqlCommand(query, debtDatabaseConnection);
+                debtDatabaseConnection.Open();
+
+                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var debt = ConvertDatabaseEntryToDebt(reader);
+                        response.Debts.Add(debt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Notices.Add("Error during process: " + ex.Message);
+            }
+            finally
+            {
+                debtDatabaseConnection.Close();
+            }
+            return response;
+        }
+
+        public FinancialReportResponse CreateMonthlyFinancialReport()
+        {
+            var response = new FinancialReportResponse();
+
+
+            try
+            {
+                var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(month, -1, GETDATE()) and GETDATE()";
                 var sqlCommand = new SqlCommand(query, debtDatabaseConnection);
                 debtDatabaseConnection.Open();
 
