@@ -1,5 +1,4 @@
 ﻿using MyFinancialApi.Domain.DTOs;
-using MyFinancialApi.Web.DTOs.Requests;
 using MyFinancialApi.Web.DTOs.Responses;
 using System.Data.SqlClient;
 

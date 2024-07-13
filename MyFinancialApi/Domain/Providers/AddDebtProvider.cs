@@ -1,5 +1,4 @@
-﻿using MyFinancialApi.Domain.Managers;
-using MyFinancialApi.Web.DTOs.Requests;
+﻿using MyFinancialApi.Web.DTOs.Requests;
 using System.Data.SqlClient;
 
 namespace MyFinancialApi.Domain.Providers

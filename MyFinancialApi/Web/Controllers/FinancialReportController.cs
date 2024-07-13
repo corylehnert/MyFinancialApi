@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyFinancialApi.Domain;
-using MyFinancialApi.Domain.Managers;
-using MyFinancialApi.Web.DTOs.Requests;
-using MyFinancialApi.Web.DTOs.Responses;
 
 namespace MyFinancialApi.Web.Controllers
 {

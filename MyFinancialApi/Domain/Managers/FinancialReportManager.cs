@@ -1,5 +1,4 @@
 ﻿using MyFinancialApi.Domain.Providers;
-using MyFinancialApi.Web.DTOs.Requests;
 using MyFinancialApi.Web.DTOs.Responses;
 
 namespace MyFinancialApi.Domain.Managers
