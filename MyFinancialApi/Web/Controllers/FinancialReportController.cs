@@ -31,5 +31,13 @@ namespace MyFinancialApi.Web.Controllers
             var response = DomainFacade.CreateWeeklyFinancialReport();
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("MonthlyReport")]
+        public IActionResult CreateMonthlyReport()
+        {
+            var response = new FinancialReportResponse();
+            return Ok(response);
+        }
     }
 }
