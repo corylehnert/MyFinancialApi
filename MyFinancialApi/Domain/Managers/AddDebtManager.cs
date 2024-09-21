@@ -5,8 +5,12 @@ namespace MyFinancialApi.Domain.Managers
 {
     public class AddDebtManager : IAddDebtManager
     {
-        private AddDebtProvider _provider = new AddDebtProvider();
+        private IAddDebtProvider _provider;
 
+        public AddDebtManager(IAddDebtProvider provider)
+        {
+            _provider = provider
+        }
         public void AddDebt(AddDebtRequest request)
         {
             _provider.AddDebt(request);

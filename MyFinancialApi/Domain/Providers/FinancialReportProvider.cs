@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 namespace MyFinancialApi.Domain.Providers
 {
     
-    public class FinancialReportProvider
+    public class FinancialReportProvider : IFinancialReportProvider
     {
         private readonly SqlConnection debtDatabaseConnection = new SqlConnection("");
         public FinancialReportResponse CreateFinancialReport()
