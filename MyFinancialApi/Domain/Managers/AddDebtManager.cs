@@ -1,5 +1,6 @@
 ﻿using MyFinancialApi.Domain.Providers;
 using MyFinancialApi.Web.DTOs.Requests;
+using MyFinancialApi.Web.DTOs.Responses;
 
 namespace MyFinancialApi.Domain.Managers
 {
@@ -7,9 +8,9 @@ namespace MyFinancialApi.Domain.Managers
     {
         private AddDebtProvider _provider = new AddDebtProvider();
 
-        public void AddDebt(AddDebtRequest request)
+        public AddDebtResponse AddDebt(AddDebtRequest request)
         {
-            _provider.AddDebt(request);
+            return _provider.AddDebt(request);
         }
     }
 }
