@@ -11,9 +11,9 @@ namespace MyFinancialApi.Domain
         private static AddDebtManager _addDebtManager = new AddDebtManager(addDebtProvider);
         private static FinancialReportManager _reportManager = new FinancialReportManager();
 
-        public static void AddDebt(AddDebtRequest request)
+        public static AddDebtResponse AddDebt(AddDebtRequest request)
         {
-            _addDebtManager.AddDebt(request);
+            return _addDebtManager.AddDebt(request);
         }
 
         public static FinancialReportResponse CreateFinancialReport()

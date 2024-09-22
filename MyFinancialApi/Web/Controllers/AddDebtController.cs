@@ -2,6 +2,7 @@
 using MyFinancialApi.Domain;
 using MyFinancialApi.Domain.Managers;
 using MyFinancialApi.Web.DTOs.Requests;
+using MyFinancialApi.Web.DTOs.Responses;
 
 namespace MyFinancialApi.Web.Controllers
 {
@@ -20,15 +21,17 @@ namespace MyFinancialApi.Web.Controllers
         [Route("AddDebt")]
         public IActionResult Post(AddDebtRequest request)
         {
+            var response = new AddDebtResponse();
             try
             {
-                DomainFacade.AddDebt(request);
+                response = DomainFacade.AddDebt(request);
             }
             catch (Exception ex) 
             {
-                return new BadRequestObjectResult(ex.Message);
+                response.Notices.Add(ex.Message);
+                return new BadRequestObjectResult(response);
             }
-            return new OkObjectResult("This is the AddDebt response with no errors.");
+            return new OkObjectResult(response);
         }
     }
 }
