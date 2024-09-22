@@ -1,12 +1,14 @@
 ﻿using MyFinancialApi.Web.DTOs.Requests;
+using MyFinancialApi.Web.DTOs.Responses;
 using System.Data.SqlClient;
 
 namespace MyFinancialApi.Domain.Providers
 {
     public class AddDebtProvider : IAddDebtProvider
     {
-        public void AddDebt(AddDebtRequest request)
+        public AddDebtResponse AddDebt(AddDebtRequest request)
         {
+            var response = new AddDebtResponse();
             var query = $"INSERT INTO [dbo].[debt](Id, Description,Amount,DateCreated,Frequency,NextPaymentDate,LastPaymentDate,Owner) VALUES (@Id, @Description, @Amount, @DateCreated, @Frequency, @NextPaymentDate, @LastPaymentDate, @Owner)";
 
             var dbConnection = new SqlConnection("");
@@ -24,16 +26,17 @@ namespace MyFinancialApi.Domain.Providers
             {
                 dbConnection.Open();
                 dbCommand.ExecuteNonQuery();
-                Console.WriteLine("Debt added to database");
+                response.Notices.Add("Debt added to database");
             }
             catch (SqlException ex)
             {
-                Console.WriteLine($"Failed to Add Debt to Database; Exception thrown: {ex}");
+                response.Notices.Add($"Failed to Add Debt to Database; Exception thrown: {ex}");
             }
             finally
             {
                 dbConnection.Close();
             }
+            return response;
         }
     }
 }
