@@ -2,10 +2,10 @@
 
 namespace MyFinancialApi.Domain.Providers
 {
-    public interface IFinancialReportProvider
+    public abstract class IFinancialReportProvider
     {
-        public FinancialReportResponse CreateFinancialReport();
-        public FinancialReportResponse CreateWeeklyFinanicalReport();
-        public FinancialReportResponse CreateMonthlyFinancialReport();
+        public abstract FinancialReportResponse CreateFinancialReport();
+        public abstract FinancialReportResponse CreateWeeklyFinanicalReport();
+        public abstract FinancialReportResponse CreateMonthlyFinancialReport();
     }
 }

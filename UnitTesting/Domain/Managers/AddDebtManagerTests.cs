@@ -1,12 +1,8 @@
 ﻿using Moq;
 using MyFinancialApi.Domain.Managers;
 using MyFinancialApi.Domain.Providers;
-using MyFinancialApi.Web.DTOs.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Requests = MyFinancialApi.Web.DTOs.Requests;
+using Responses = MyFinancialApi.Web.DTOs.Responses;
 
 namespace UnitTesting.Domain.Managers
 {
@@ -17,8 +13,8 @@ namespace UnitTesting.Domain.Managers
         public void AddDebtManger_WhenRequestIsSent_ReturnsResponse()
         {
             var mockProvider = new Mock<AddDebtProvider>();
-            mockProvider.Setup(m => m.AddDebt(It.IsAny<AddDebtRequest>())).Returns(new MyFinancialApi.Web.DTOs.Responses.AddDebtResponse { Notices = new List<string> { "Debt added to database" } });
-            var testRequest = new AddDebtRequest
+            mockProvider.Setup(m => m.AddDebt(It.IsAny<Requests.AddDebtRequest>())).Returns(new Responses.AddDebtResponse { Notices = new List<string> { "Debt added to database" } });
+            var testRequest = new Requests.AddDebtRequest
             {
                 Id = 0,
                 Description = "Test",

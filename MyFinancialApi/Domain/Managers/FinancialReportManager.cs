@@ -5,8 +5,12 @@ namespace MyFinancialApi.Domain.Managers
 {
     public class FinancialReportManager : IFinancialReportManager
     {
-        private FinancialReportProvider _provider = new FinancialReportProvider();
+        private IFinancialReportProvider _provider;
 
+        public FinancialReportManager(IFinancialReportProvider financialReportProvider)
+        {
+            _provider = financialReportProvider;
+        }
         public FinancialReportResponse CreateFinanicalReport()
         {
             return _provider.CreateFinancialReport();
