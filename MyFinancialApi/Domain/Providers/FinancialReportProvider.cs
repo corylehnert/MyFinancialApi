@@ -9,9 +9,9 @@ namespace MyFinancialApi.Domain.Providers
     
     public class FinancialReportProvider
     {
-        private readonly Func<DbConnection> _debtDatabaseConnection;
+        private readonly SqlConnection _debtDatabaseConnection;
         
-        public FinancialReportProvider(Func<DbConnection> debtDatabaseConnection)
+        public FinancialReportProvider(SqlConnection debtDatabaseConnection)
         {
             _debtDatabaseConnection = debtDatabaseConnection; 
         }
@@ -21,26 +21,27 @@ namespace MyFinancialApi.Domain.Providers
 
             try
             {
-                using (var connection = _debtDatabaseConnection.Invoke())
-                {
-                    var query = $"SELECT * FROM [dbo].[debt]";
-                    var sqlCommand = connection.CreateCommand();
-                    sqlCommand.CommandText = query;
-                    connection.Open();
+                var query = $"SELECT * FROM [dbo].[debt]";
+                var sqlCommand = _debtDatabaseConnection.CreateCommand();
+                sqlCommand.CommandText = query;
+                _debtDatabaseConnection.Open();
 
-                    using (IDataReader reader = sqlCommand.ExecuteReader())
+                using (IDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var debt = ConvertDatabaseEntryToDebt(reader);
-                            response.Debts.Add(debt);
-                        }
+                        var debt = ConvertDatabaseEntryToDebt(reader);
+                        response.Debts.Add(debt);
                     }
                 }
             }
             catch (Exception ex)
             {
                 response.Notices.Add("Error during process: " + ex.Message);
+            }
+            finally
+            {
+                _debtDatabaseConnection.Close();
             }
             return response;
         }
@@ -52,27 +53,28 @@ namespace MyFinancialApi.Domain.Providers
             
             try
             {
-                using(var connection = _debtDatabaseConnection.Invoke())
+                var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(week, -1, GETDATE()) and GETDATE()";
+                var sqlCommand = connection.CreateCommand();
+                sqlCommand.CommandText = query;
+
+                connection.Open();
+
+                using (IDataReader reader = sqlCommand.ExecuteReader())
                 {
-                    var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(week, -1, GETDATE()) and GETDATE()";
-                    var sqlCommand = connection.CreateCommand();
-                    sqlCommand.CommandText = query;
-
-                    connection.Open();
-
-                    using (IDataReader reader = sqlCommand.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var debt = ConvertDatabaseEntryToDebt(reader);
-                            response.Debts.Add(debt);
-                        }
+                        var debt = ConvertDatabaseEntryToDebt(reader);
+                        response.Debts.Add(debt);
                     }
                 }
             }
             catch (Exception ex)
             {
                 response.Notices.Add("Error during process: " + ex.Message);
+            }
+            finally 
+            {
+                _debtDatabaseConnection.Close();
             }
             return response;
         }
@@ -84,26 +86,27 @@ namespace MyFinancialApi.Domain.Providers
 
             try
             {
-               using(var connection = _debtDatabaseConnection.Invoke())
-                {
-                    var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(month, -1, GETDATE()) and GETDATE()";
-                    var sqlCommand = connection.CreateCommand();
-                    sqlCommand.CommandText = query;
-                    connection.Open();
+                var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(month, -1, GETDATE()) and GETDATE()";
+                var sqlCommand = _debtDatabaseConnection.CreateCommand();
+                sqlCommand.CommandText = query;
+                _debtDatabaseConnection.Open();
 
-                    using (IDataReader reader = sqlCommand.ExecuteReader())
+                using (IDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var debt = ConvertDatabaseEntryToDebt(reader);
-                            response.Debts.Add(debt);
-                        }
+                        var debt = ConvertDatabaseEntryToDebt(reader);
+                        response.Debts.Add(debt);
                     }
                 }
             }
             catch (Exception ex)
             {
                 response.Notices.Add("Error during process: " + ex.Message);
+            }
+            finally
+            {
+                _debtDatabaseConnection.Close();
             }
 
             return response;

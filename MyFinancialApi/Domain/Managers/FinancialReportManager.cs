@@ -6,7 +6,7 @@ namespace MyFinancialApi.Domain.Managers
 {
     public class FinancialReportManager : IFinancialReportManager
     {
-        private FinancialReportProvider _provider = new FinancialReportProvider(() => new SqlConnection(""));
+        private FinancialReportProvider _provider = new FinancialReportProvider(new SqlConnection(""));
 
         public FinancialReportResponse CreateFinanicalReport()
         {
