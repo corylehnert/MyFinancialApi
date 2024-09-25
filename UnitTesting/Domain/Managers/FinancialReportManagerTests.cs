@@ -16,10 +16,10 @@ namespace UnitTesting.Domain.Managers
             _testProvider.Setup(m => m.CreateFinancialReport()).Returns(new FinancialReportResponse { Debts = new List<DebtEntry>
             {
                 new DebtEntry(0, 100, "Test", DateTime.Now, "ONETIME", DateTime.MaxValue, DateTime.MinValue, "Tester"),
-                new DebtEntry(0, 100, "Test", DateTime.Now, "ONETIME", DateTime.Now.AddDays(7), DateTime.MinValue, "Tester"),
+                new DebtEntry(0, 100, "Test", DateTime.Now, "ONETIME", DateTime.Now.AddDays(-7), DateTime.MinValue, "Tester"),
                 new DebtEntry(0, 100, "Test", DateTime.Now, "ONETIME", DateTime.Now.AddDays(-8), DateTime.MinValue, "Tester"),
-                new DebtEntry(0, 100, "Test", DateTime.Now, "ONETIME", DateTime.Now.AddDays(-29), DateTime.MinValue, "Tester"),
-                new DebtEntry(0, 100, "Test", DateTime.Now, "ONETIME", DateTime.Now.AddMonths(-12), DateTime.MinValue, "Tester")
+                new DebtEntry(0, 100, "Test", DateTime.Now, "ONETIME", DateTime.Now.AddMonths(-3), DateTime.MinValue, "Tester"),
+                new DebtEntry(0, 100, "Test", DateTime.Now, "ONETIME", DateTime.Now.AddYears(-2), DateTime.MinValue, "Tester")
 
             } 
             });
