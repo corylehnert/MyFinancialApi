@@ -1,11 +1,12 @@
 ﻿using MyFinancialApi.Domain.Providers;
 using MyFinancialApi.Web.DTOs.Responses;
+using System.Data.SqlClient;
 
 namespace MyFinancialApi.Domain.Managers
 {
     public class FinancialReportManager : IFinancialReportManager
     {
-        private FinancialReportProvider _provider = new FinancialReportProvider();
+        private FinancialReportProvider _provider = new FinancialReportProvider(() => new SqlConnection(""));
 
         public FinancialReportResponse CreateFinanicalReport()
         {
