@@ -8,7 +8,7 @@ namespace UnitTesting.Domain.Managers
     [TestClass]
     public class FinancialReportManagerTests
     {
-        private static Mock<FinancialReportProvider> _testProvider = new Mock<FinancialReportProvider>();
+        private static Mock<IFinancialReportProvider> _testProvider = new Mock<IFinancialReportProvider>();
         [TestMethod]
         public void FinancialReportManager_CreateFinancialReport_WhenValidRequestIsSent_ReturnFinancialReportResponse()
         {

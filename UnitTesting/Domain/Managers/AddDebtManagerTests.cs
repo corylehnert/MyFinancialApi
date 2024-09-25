@@ -9,10 +9,11 @@ namespace UnitTesting.Domain.Managers
     [TestClass]
     public class AddDebtManagerTests
     {
+        private Mock<IAddDebtProvider> mockProvider = new Mock<IAddDebtProvider>();
         [TestMethod]
         public void AddDebtManger_WhenRequestIsSent_ReturnsResponse()
         {
-            var mockProvider = new Mock<AddDebtProvider>();
+            
             mockProvider.Setup(m => m.AddDebt(It.IsAny<Requests.AddDebtRequest>())).Returns(new Responses.AddDebtResponse { Notices = new List<string> { "Debt added to database" } });
             var testRequest = new Requests.AddDebtRequest
             {

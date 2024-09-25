@@ -1,5 +1,7 @@
 ﻿using MyFinancialApi.Domain.DTOs;
 using MyFinancialApi.Web.DTOs.Responses;
+using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace MyFinancialApi.Domain.Providers
@@ -7,7 +9,12 @@ namespace MyFinancialApi.Domain.Providers
     
     public class FinancialReportProvider : IFinancialReportProvider
     {
-        private readonly SqlConnection debtDatabaseConnection = new SqlConnection("");
+        private readonly SqlConnection _debtDatabaseConnection;
+        
+        public FinancialReportProvider(SqlConnection debtDatabaseConnection)
+        {
+            _debtDatabaseConnection = debtDatabaseConnection; 
+        }
         public override FinancialReportResponse CreateFinancialReport()
         {
             var response = new FinancialReportResponse();
@@ -15,10 +22,11 @@ namespace MyFinancialApi.Domain.Providers
             try
             {
                 var query = $"SELECT * FROM [dbo].[debt]";
-                var sqlCommand = new SqlCommand(query, debtDatabaseConnection);
-                debtDatabaseConnection.Open();
+                var sqlCommand = _debtDatabaseConnection.CreateCommand();
+                sqlCommand.CommandText = query;
+                _debtDatabaseConnection.Open();
 
-                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                using (IDataReader reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -33,7 +41,7 @@ namespace MyFinancialApi.Domain.Providers
             }
             finally
             {
-                debtDatabaseConnection.Close();
+                _debtDatabaseConnection.Close();
             }
             return response;
         }
@@ -45,10 +53,12 @@ namespace MyFinancialApi.Domain.Providers
             try
             {
                 var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(week, -1, GETDATE()) and GETDATE()";
-                var sqlCommand = new SqlCommand(query, debtDatabaseConnection);
-                debtDatabaseConnection.Open();
+                var sqlCommand = _debtDatabaseConnection.CreateCommand();
+                sqlCommand.CommandText = query;
 
-                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                _debtDatabaseConnection.Open();
+
+                using (IDataReader reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -61,9 +71,9 @@ namespace MyFinancialApi.Domain.Providers
             {
                 response.Notices.Add("Error during process: " + ex.Message);
             }
-            finally
+            finally 
             {
-                debtDatabaseConnection.Close();
+                _debtDatabaseConnection.Close();
             }
             return response;
         }
@@ -76,10 +86,11 @@ namespace MyFinancialApi.Domain.Providers
             try
             {
                 var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(month, -1, GETDATE()) and GETDATE()";
-                var sqlCommand = new SqlCommand(query, debtDatabaseConnection);
-                debtDatabaseConnection.Open();
+                var sqlCommand = _debtDatabaseConnection.CreateCommand();
+                sqlCommand.CommandText = query;
+                _debtDatabaseConnection.Open();
 
-                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                using (IDataReader reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -94,8 +105,9 @@ namespace MyFinancialApi.Domain.Providers
             }
             finally
             {
-                debtDatabaseConnection.Close();
+                _debtDatabaseConnection.Close();
             }
+
             return response;
         }
 
@@ -104,18 +116,18 @@ namespace MyFinancialApi.Domain.Providers
         /// </summary>
         /// <param name="dbEntry">the data base reader with the current entry loaded</param>
         /// <returns>a <see cref="Debt"/> object </returns>
-        private DebtEntry ConvertDatabaseEntryToDebt(SqlDataReader dbEntry)
+        private DebtEntry ConvertDatabaseEntryToDebt(IDataReader dbEntry)
         {
-            var id = Int32.Parse(dbEntry[0].ToString());
-            var description = dbEntry[2].ToString();
-            var amount = decimal.Parse(dbEntry[1].ToString()).ToString("0.00");
-            var dateCreated = DateTime.Parse(dbEntry[3].ToString());
-            var frequency = dbEntry[4].ToString();
-            var nextPaymentDate = DateTime.Parse(dbEntry[5].ToString());
-            var lastPaymentDate = DateTime.Parse(dbEntry[6].ToString());
-            var owner = dbEntry[7].ToString();
+            var id = dbEntry.GetInt32(dbEntry.GetOrdinal("ID"));
+            var description = dbEntry.GetString(dbEntry.GetOrdinal("Description"));
+            var amount = dbEntry.GetDecimal(dbEntry.GetOrdinal("Amount")).ToString("0.00");
+            var dateCreated = dbEntry.GetDateTime(dbEntry.GetOrdinal("DateCreated"));
+            var frequency = dbEntry.GetString(dbEntry.GetOrdinal("Frequency"));
+            var nextPaymentDate = dbEntry.GetString(dbEntry.GetOrdinal("NextPaymentDate"));
+            var lastPaymentDate = dbEntry.GetString(dbEntry.GetOrdinal("LastPaymentDate"));
+            var owner = dbEntry.GetString(dbEntry.GetOrdinal("Owner"));
 
-            return new DebtEntry(id, float.Parse(amount), description, dateCreated, frequency, nextPaymentDate, lastPaymentDate, owner);
+            return new DebtEntry(id, float.Parse(amount), description, dateCreated, frequency, DateTime.Parse(nextPaymentDate), DateTime.Parse(lastPaymentDate), owner);
         }
     }
 }

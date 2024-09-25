@@ -2,34 +2,35 @@
 using MyFinancialApi.Domain.Providers;
 using MyFinancialApi.Web.DTOs.Requests;
 using MyFinancialApi.Web.DTOs.Responses;
-
+using System.Data.SqlClient;
 namespace MyFinancialApi.Domain
 {
     public static class DomainFacade
     {
-        private static IAddDebtProvider addDebtProvider = new AddDebtProvider();
-        private static AddDebtManager _addDebtManager = new AddDebtManager(addDebtProvider);
-        private static IFinancialReportProvider _financialReportProvider = new FinancialReportProvider();
-        private static FinancialReportManager _reportManager = new FinancialReportManager(_financialReportProvider);
+        private static readonly SqlConnection _connection = new SqlConnection("");
 
         public static AddDebtResponse AddDebt(AddDebtRequest request)
         {
-            return _addDebtManager.AddDebt(request);
+            var addDebtManager = new AddDebtManager(new AddDebtProvider(_connection));
+            return addDebtManager.AddDebt(request);
         }
 
         public static FinancialReportResponse CreateFinancialReport()
         {
-            return _reportManager.CreateFinanicalReport();
+            var reportManager = new FinancialReportManager(new  FinancialReportProvider(_connection));
+            return reportManager.CreateFinanicalReport();
         }
 
         public static FinancialReportResponse CreateWeeklyFinancialReport()
         {
-            return _reportManager.CreateWeeklyFinancialReport();
+            var reportManager = new FinancialReportManager(new FinancialReportProvider(_connection));
+            return reportManager.CreateWeeklyFinancialReport();
         }
 
         public static FinancialReportResponse CreateMonthlyFinancialiReport()
         {
-            return _reportManager.CreateMonthlyFinancialReport();
+            var reportManager = new FinancialReportManager(new FinancialReportProvider(_connection));
+            return reportManager.CreateMonthlyFinancialReport();
         }
     }
 }
