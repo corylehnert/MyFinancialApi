@@ -5,29 +5,29 @@ using MyFinancialApi.Web.DTOs.Responses;
 using System.Data.SqlClient;
 namespace MyFinancialApi.Domain
 {
-    public static class DomainFacade
+    public class DomainFacade : IDomainFacade
     {
-        private static readonly SqlConnection _connection = new SqlConnection("");
+        private readonly SqlConnection _connection = new SqlConnection("");
 
-        public static AddDebtResponse AddDebt(AddDebtRequest request)
+        public AddDebtResponse AddDebt(AddDebtRequest request)
         {
             var addDebtManager = new AddDebtManager(new AddDebtProvider(_connection));
             return addDebtManager.AddDebt(request);
         }
 
-        public static FinancialReportResponse CreateFinancialReport()
+        public FinancialReportResponse CreateFinancialReport()
         {
-            var reportManager = new FinancialReportManager(new  FinancialReportProvider(_connection));
+            var reportManager = new FinancialReportManager(new FinancialReportProvider(_connection));
             return reportManager.CreateFinanicalReport();
         }
 
-        public static FinancialReportResponse CreateWeeklyFinancialReport()
+        public FinancialReportResponse CreateWeeklyFinancialReport()
         {
             var reportManager = new FinancialReportManager(new FinancialReportProvider(_connection));
             return reportManager.CreateWeeklyFinancialReport();
         }
 
-        public static FinancialReportResponse CreateMonthlyFinancialiReport()
+        public FinancialReportResponse CreateMonthlyFinancialReport()
         {
             var reportManager = new FinancialReportManager(new FinancialReportProvider(_connection));
             return reportManager.CreateMonthlyFinancialReport();

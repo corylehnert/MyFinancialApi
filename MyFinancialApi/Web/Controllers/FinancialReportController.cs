@@ -7,17 +7,19 @@ namespace MyFinancialApi.Web.Controllers
     public class FinancialReportController : Controller
     {
         private readonly ILogger<FinancialReportController> _logger;
-
-        public FinancialReportController(ILogger<FinancialReportController> logger)
+        private readonly IDomainFacade _domainFacade; 
+        public FinancialReportController(ILogger<FinancialReportController> logger, IDomainFacade domainFacade)
         {
             _logger = logger;
+            _domainFacade = domainFacade;
         }
 
         [HttpGet]
         [Route("FullReport")]
         public IActionResult CreateFullReport()
         {
-            var response = DomainFacade.CreateFinancialReport();
+            var domainFacade = new DomainFacade();
+            var response = domainFacade.CreateFinancialReport();
             return Ok(response);
         }
 
@@ -25,7 +27,8 @@ namespace MyFinancialApi.Web.Controllers
         [Route("WeeklyReport")]
         public IActionResult CreateWeeklyReport()
         {
-            var response = DomainFacade.CreateWeeklyFinancialReport();
+            var domainFacade = new DomainFacade();
+            var response = domainFacade.CreateWeeklyFinancialReport();
             return Ok(response);
         }
 
@@ -33,7 +36,8 @@ namespace MyFinancialApi.Web.Controllers
         [Route("MonthlyReport")]
         public IActionResult CreateMonthlyReport()
         {
-            var response = DomainFacade.CreateMonthlyFinancialiReport();
+            var domainFacade = new DomainFacade();
+            var response = domainFacade.CreateMonthlyFinancialiReport();
             return Ok(response);
         }
     }
