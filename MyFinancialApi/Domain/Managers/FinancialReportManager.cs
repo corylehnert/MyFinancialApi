@@ -12,17 +12,17 @@ namespace MyFinancialApi.Domain.Managers
         {
             _provider = financialReportProvider;
         }
-        public FinancialReportResponse CreateFinanicalReport()
+        public override FinancialReportResponse CreateFinanicalReport()
         {
             return _provider.CreateFinancialReport();
         }
 
-        public FinancialReportResponse CreateWeeklyFinancialReport()
+        public override FinancialReportResponse CreateWeeklyFinancialReport()
         {
             return _provider.CreateWeeklyFinanicalReport();
         }
 
-        public FinancialReportResponse CreateMonthlyFinancialReport()
+        public override FinancialReportResponse CreateMonthlyFinancialReport()
         {
             return _provider.CreateMonthlyFinancialReport();
         }

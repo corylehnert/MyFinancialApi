@@ -9,11 +9,11 @@ namespace MyFinancialApi.Domain.Providers
     
     public class FinancialReportProvider : IFinancialReportProvider
     {
-        private readonly SqlConnection _debtDatabaseConnection;
-        
-        public FinancialReportProvider(SqlConnection debtDatabaseConnection)
+        private readonly DbConnection _debtDatabaseConnection = new SqlConnection("Data Source=localhost;Initial Catalog=DebtDatabase;Integrated Security=True;");
+
+        public FinancialReportProvider()
         {
-            _debtDatabaseConnection = debtDatabaseConnection; 
+
         }
         public override FinancialReportResponse CreateFinancialReport()
         {

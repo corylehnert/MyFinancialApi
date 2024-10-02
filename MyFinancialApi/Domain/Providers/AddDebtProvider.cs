@@ -10,10 +10,9 @@ namespace MyFinancialApi.Domain.Providers
     [ExcludeFromCodeCoverage]
     public class AddDebtProvider : IAddDebtProvider
     {
-        private readonly SqlConnection _debtDatabaseConnection;
-        public AddDebtProvider(DbConnection debtDatabaseConnection) 
+        private readonly DbConnection _debtDatabaseConnection = new SqlConnection("Data Source=localhost;Initial Catalog=DebtDatabase;Integrated Security=True;");
+        public AddDebtProvider() 
         {
-            _debtDatabaseConnection = (SqlConnection)debtDatabaseConnection;
         }
         public override AddDebtResponse AddDebt(AddDebtRequest request)
         {
@@ -26,14 +25,14 @@ namespace MyFinancialApi.Domain.Providers
 
                 var dbCommand = _debtDatabaseConnection.CreateCommand();
                 dbCommand.CommandText = query;
-                dbCommand.Parameters.AddWithValue("@Id", request.Id);
-                dbCommand.Parameters.AddWithValue("@Description", request.Description);
-                dbCommand.Parameters.AddWithValue("@Amount", request.Amount);
-                dbCommand.Parameters.AddWithValue("@DateCreated", request.DateOfOccurrence);
-                dbCommand.Parameters.AddWithValue("@Frequency", request.Frequency);
-                dbCommand.Parameters.AddWithValue("@NextPaymentDate", request.NextPaymentDate.ToShortDateString());
-                dbCommand.Parameters.AddWithValue("@LastPaymentDate", request.LastPaymentDate.ToShortDateString());
-                dbCommand.Parameters.AddWithValue("@Owner", request.Owner);
+                dbCommand.Parameters.Add(new SqlParameter("@Id", request.Id));
+                dbCommand.Parameters.Add(new SqlParameter("@Description", request.Description));
+                dbCommand.Parameters.Add(new SqlParameter("@Amount", request.Id));
+                dbCommand.Parameters.Add(new SqlParameter("@DateCreated", request.DateOfOccurrence));
+                dbCommand.Parameters.Add(new SqlParameter("@Frequency", request.Frequency));
+                dbCommand.Parameters.Add(new SqlParameter("@NextPaymentDate", request.NextPaymentDate.ToShortDateString()));
+                dbCommand.Parameters.Add(new SqlParameter("@LastPaymentDate", request.LastPaymentDate.ToShortDateString()));
+                dbCommand.Parameters.Add(new SqlParameter("@Owner", request.Owner));
                 _debtDatabaseConnection.Open();
                 dbCommand.ExecuteNonQuery();
                 response.Notices.Add("Debt added to database");

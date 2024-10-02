@@ -13,7 +13,7 @@ namespace MyFinancialApi.Domain.Managers
             _provider = provider;
         }
 
-        public AddDebtResponse AddDebt(AddDebtRequest request)
+        public override AddDebtResponse AddDebt(AddDebtRequest request)
         {
             return _provider.AddDebt(request);
         }

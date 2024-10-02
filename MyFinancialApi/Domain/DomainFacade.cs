@@ -5,31 +5,35 @@ using MyFinancialApi.Web.DTOs.Responses;
 using System.Data.SqlClient;
 namespace MyFinancialApi.Domain
 {
-    public static class DomainFacade
+    public  class DomainFacade : IDomainFacade
     {
-        private static readonly SqlConnection _connection = new SqlConnection("");
-
-        public static AddDebtResponse AddDebt(AddDebtRequest request)
+        private readonly SqlConnection _connection = new SqlConnection("http://localhost:5000/");
+        public DomainFacade()
         {
-            var addDebtManager = new AddDebtManager(new AddDebtProvider(_connection));
+
+        }
+
+        public  AddDebtResponse AddDebt(AddDebtRequest request)
+        {
+            var addDebtManager = new AddDebtManager(new AddDebtProvider());
             return addDebtManager.AddDebt(request);
         }
 
-        public static FinancialReportResponse CreateFinancialReport()
+        public  FinancialReportResponse CreateFinancialReport()
         {
-            var reportManager = new FinancialReportManager(new  FinancialReportProvider(_connection));
+            var reportManager = new FinancialReportManager(new  FinancialReportProvider());
             return reportManager.CreateFinanicalReport();
         }
 
-        public static FinancialReportResponse CreateWeeklyFinancialReport()
+        public  FinancialReportResponse CreateWeeklyFinancialReport()
         {
-            var reportManager = new FinancialReportManager(new FinancialReportProvider(_connection));
+            var reportManager = new FinancialReportManager(new FinancialReportProvider());
             return reportManager.CreateWeeklyFinancialReport();
         }
 
-        public static FinancialReportResponse CreateMonthlyFinancialiReport()
+        public  FinancialReportResponse CreateMonthlyFinancialiReport()
         {
-            var reportManager = new FinancialReportManager(new FinancialReportProvider(_connection));
+            var reportManager = new FinancialReportManager(new FinancialReportProvider());
             return reportManager.CreateMonthlyFinancialReport();
         }
     }

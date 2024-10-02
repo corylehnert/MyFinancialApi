@@ -1,6 +1,10 @@
-﻿namespace MyFinancialApi.Domain.Managers
+﻿using MyFinancialApi.Web.DTOs.Requests;
+using MyFinancialApi.Web.DTOs.Responses;
+
+namespace MyFinancialApi.Domain.Managers
 {
-    public class IAddDebtManager
+    public abstract class IAddDebtManager
     {
+        public abstract AddDebtResponse AddDebt(AddDebtRequest request);
     }
 }
