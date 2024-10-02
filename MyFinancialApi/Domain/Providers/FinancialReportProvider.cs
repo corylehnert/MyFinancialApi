@@ -9,7 +9,7 @@ namespace MyFinancialApi.Domain.Providers
     
     public class FinancialReportProvider : IFinancialReportProvider
     {
-        private readonly DbConnection _debtDatabaseConnection = new SqlConnection("Data Source=localhost;Initial Catalog=DebtDatabase;Integrated Security=True;");
+        private readonly DbConnection _debtDatabaseConnection = new SqlConnection("");
 
         public FinancialReportProvider()
         {

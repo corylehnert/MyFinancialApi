@@ -10,7 +10,7 @@ namespace MyFinancialApi.Domain.Providers
     [ExcludeFromCodeCoverage]
     public class AddDebtProvider : IAddDebtProvider
     {
-        private readonly DbConnection _debtDatabaseConnection = new SqlConnection("Data Source=localhost;Initial Catalog=DebtDatabase;Integrated Security=True;");
+        private readonly DbConnection _debtDatabaseConnection = new SqlConnection("");
         public AddDebtProvider() 
         {
         }
