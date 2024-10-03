@@ -17,7 +17,7 @@ namespace UnitTesting.Domain.Providers
     public class AddDebtProviderTests
     {
         [TestMethod]
-        public void AddDebtProvider_WhenRequestIsPassed_SucceedNoticeShouldBeCreated()
+        public void AddDebtProvider_WhenRequestIsPassed_SucceedNoticeIsCreated()
         {
             // Arrange
             //var mockSqlCommand = new Mock<DbCommand>();
