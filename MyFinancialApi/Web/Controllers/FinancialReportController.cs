@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyFinancialApi.Domain;
 using MyFinancialApi.Domain.Managers;
 
 namespace MyFinancialApi.Web.Controllers
@@ -7,11 +6,9 @@ namespace MyFinancialApi.Web.Controllers
     [ApiController]
     public class FinancialReportController : Controller
     {
-        private readonly ILogger<FinancialReportController> _logger;
         private readonly IFinancialReportManager _manager;
-        public FinancialReportController(ILogger<FinancialReportController> logger, IFinancialReportManager financialReportManager)
+        public FinancialReportController(IFinancialReportManager financialReportManager)
         {
-            _logger = logger;
             _manager = financialReportManager;
         }
 
