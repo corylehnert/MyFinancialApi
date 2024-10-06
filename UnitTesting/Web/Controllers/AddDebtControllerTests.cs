@@ -21,7 +21,7 @@ namespace UnitTesting.Web.Controllers
             // Arrange
             var mockManager = new Mock<IAddDebtManager>();
             var mockLogger = new Mock<Logger<AddDebtController>>();
-            mockManager.Setup(m => m.AddDebt(It.IsAny<AddDebtRequest>())).Returns(new AddDebtResponse());
+            mockManager.Setup(m => m.AddDebt(It.IsAny<AddDebtRequest>())).Returns(new AddDebtResponse {  Notices = new List<string> { "Debt added to database" } });
             testController = new AddDebtController(mockManager.Object);
 
             // Act
