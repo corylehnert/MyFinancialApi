@@ -2,6 +2,6 @@
 {
     public class AddDebtResponse
     {
-        public List<string> Notices { get; } = new List<string>();
+        public List<string> Notices { get; set; } = new List<string>();
     }
 }

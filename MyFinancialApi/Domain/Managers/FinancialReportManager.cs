@@ -6,19 +6,23 @@ namespace MyFinancialApi.Domain.Managers
 {
     public class FinancialReportManager : IFinancialReportManager
     {
-        private FinancialReportProvider _provider = new FinancialReportProvider(new SqlConnection(""));
+        private IFinancialReportProvider _provider;
 
-        public FinancialReportResponse CreateFinanicalReport()
+        public FinancialReportManager(IFinancialReportProvider financialReportProvider)
+        {
+            _provider = financialReportProvider;
+        }
+        public override FinancialReportResponse CreateFinanicalReport()
         {
             return _provider.CreateFinancialReport();
         }
 
-        public FinancialReportResponse CreateWeeklyFinancialReport()
+        public override FinancialReportResponse CreateWeeklyFinancialReport()
         {
             return _provider.CreateWeeklyFinanicalReport();
         }
 
-        public FinancialReportResponse CreateMonthlyFinancialReport()
+        public override FinancialReportResponse CreateMonthlyFinancialReport()
         {
             return _provider.CreateMonthlyFinancialReport();
         }

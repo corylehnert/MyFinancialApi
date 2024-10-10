@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyFinancialApi.Domain;
+using MyFinancialApi.Domain.Managers;
 using MyFinancialApi.Web.DTOs.Requests;
 using MyFinancialApi.Web.DTOs.Responses;
 
@@ -9,11 +9,11 @@ namespace MyFinancialApi.Web.Controllers
     
     public class AddDebtController : Controller
     {
-        private readonly ILogger<AddDebtController> _logger;
+        private readonly IAddDebtManager _manager;
 
-        public AddDebtController(ILogger<AddDebtController> logger)
+        public AddDebtController(IAddDebtManager addDebtManager)
         {
-            _logger = logger;
+            _manager = addDebtManager;
         }
 
         [HttpPost]
@@ -23,7 +23,7 @@ namespace MyFinancialApi.Web.Controllers
             var response = new AddDebtResponse();
             try
             {
-                response = DomainFacade.AddDebt(request);
+                response = _manager.AddDebt(request);
             }
             catch (Exception ex) 
             {

@@ -6,9 +6,14 @@ namespace MyFinancialApi.Domain.Managers
 {
     public class AddDebtManager : IAddDebtManager
     {
-        private AddDebtProvider _provider = new AddDebtProvider(new SqlConnection(""));
+        private IAddDebtProvider _provider;
 
-        public AddDebtResponse AddDebt(AddDebtRequest request)
+        public AddDebtManager(IAddDebtProvider provider)
+        {
+            _provider = provider;
+        }
+
+        public override AddDebtResponse AddDebt(AddDebtRequest request)
         {
             return _provider.AddDebt(request);
         }

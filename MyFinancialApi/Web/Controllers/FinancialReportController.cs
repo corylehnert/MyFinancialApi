@@ -1,23 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyFinancialApi.Domain;
+using MyFinancialApi.Domain.Managers;
 
 namespace MyFinancialApi.Web.Controllers
 {
     [ApiController]
     public class FinancialReportController : Controller
     {
-        private readonly ILogger<FinancialReportController> _logger;
-
-        public FinancialReportController(ILogger<FinancialReportController> logger)
+        private readonly IFinancialReportManager _manager;
+        public FinancialReportController(IFinancialReportManager financialReportManager)
         {
-            _logger = logger;
+            _manager = financialReportManager;
         }
 
         [HttpGet]
         [Route("FullReport")]
         public IActionResult CreateFullReport()
         {
-            var response = DomainFacade.CreateFinancialReport();
+            var response = _manager.CreateFinanicalReport();
             return Ok(response);
         }
 
@@ -25,7 +24,7 @@ namespace MyFinancialApi.Web.Controllers
         [Route("WeeklyReport")]
         public IActionResult CreateWeeklyReport()
         {
-            var response = DomainFacade.CreateWeeklyFinancialReport();
+            var response = _manager.CreateWeeklyFinancialReport();
             return Ok(response);
         }
 
@@ -33,7 +32,7 @@ namespace MyFinancialApi.Web.Controllers
         [Route("MonthlyReport")]
         public IActionResult CreateMonthlyReport()
         {
-            var response = DomainFacade.CreateMonthlyFinancialiReport();
+            var response = _manager.CreateMonthlyFinancialReport();
             return Ok(response);
         }
     }

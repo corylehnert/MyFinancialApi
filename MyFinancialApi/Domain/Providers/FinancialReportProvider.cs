@@ -7,15 +7,15 @@ using System.Data.SqlClient;
 namespace MyFinancialApi.Domain.Providers
 {
     
-    public class FinancialReportProvider
+    public class FinancialReportProvider : IFinancialReportProvider
     {
-        private readonly SqlConnection _debtDatabaseConnection;
-        
-        public FinancialReportProvider(SqlConnection debtDatabaseConnection)
+        private readonly DbConnection _debtDatabaseConnection = new SqlConnection("");
+
+        public FinancialReportProvider()
         {
-            _debtDatabaseConnection = debtDatabaseConnection; 
+
         }
-        public FinancialReportResponse CreateFinancialReport()
+        public override FinancialReportResponse CreateFinancialReport()
         {
             var response = new FinancialReportResponse();
 
@@ -46,18 +46,17 @@ namespace MyFinancialApi.Domain.Providers
             return response;
         }
 
-        public FinancialReportResponse CreateWeeklyFinanicalReport()
+        public override FinancialReportResponse CreateWeeklyFinanicalReport()
         {
             var response = new FinancialReportResponse();
 
-            
             try
             {
                 var query = $"SELECT * FROM [dbo].[debt] where DateCreated between DATEADD(week, -1, GETDATE()) and GETDATE()";
-                var sqlCommand = connection.CreateCommand();
+                var sqlCommand = _debtDatabaseConnection.CreateCommand();
                 sqlCommand.CommandText = query;
 
-                connection.Open();
+                _debtDatabaseConnection.Open();
 
                 using (IDataReader reader = sqlCommand.ExecuteReader())
                 {
@@ -79,7 +78,7 @@ namespace MyFinancialApi.Domain.Providers
             return response;
         }
 
-        public FinancialReportResponse CreateMonthlyFinancialReport()
+        public override FinancialReportResponse CreateMonthlyFinancialReport()
         {
             var response = new FinancialReportResponse();
 
